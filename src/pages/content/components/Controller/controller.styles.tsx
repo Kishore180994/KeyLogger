@@ -10,7 +10,7 @@ export const StyledController = styled.div<Props>`
   right: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   transition: stroke 1s ease-in-out;
   .controller-container {
     display: flex;
@@ -35,6 +35,10 @@ export const StyledController = styled.div<Props>`
         1px 1px 0 white;
       font-weight: bold;
       transition: text-shadow 1s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
     }
   }
   .name {

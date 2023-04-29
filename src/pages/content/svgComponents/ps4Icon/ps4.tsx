@@ -19,8 +19,17 @@ const PS4Icon: React.FC<Props> = ({
   const [rightTransform, setRightTransform] = useState("");
 
   useEffect(() => {
-    const normalizedLeftAxisX = (leftAxisX - 396) / 100;
-    const normalizedLeftAxisY = -(leftAxisY - 224) / 100;
+    if (isNaN(leftAxisX) || isNaN(leftAxisY)) {
+      return;
+    }
+
+    const normalizedLeftAxisX = (leftAxisX - 397) / 100;
+    const normalizedLeftAxisY = -(leftAxisY - 223) / 100;
+
+    if (isNaN(normalizedLeftAxisX) || isNaN(normalizedLeftAxisY)) {
+      return;
+    }
+
     const transformX = 21.3 * normalizedLeftAxisX;
     const transformY = 21.3 * normalizedLeftAxisY;
     const leftAnalogTransformString = `translate(${transformX},${transformY})`;
@@ -28,10 +37,19 @@ const PS4Icon: React.FC<Props> = ({
   }, [leftAxisX, leftAxisY]);
 
   useEffect(() => {
-    const normalizedLeftAxisX = (rightAxisX - 498) / 100;
-    const normalizedLeftAxisY = -(rightAxisY - 223) / 100;
-    const transformX = 21.3 * normalizedLeftAxisX;
-    const transformY = 21.3 * normalizedLeftAxisY;
+    if (isNaN(rightAxisX) || isNaN(rightAxisY)) {
+      return;
+    }
+
+    const normalizedRightAxisX = (rightAxisX - 497) / 100;
+    const normalizedRightAxisY = -(rightAxisY - 224) / 100;
+
+    if (isNaN(normalizedRightAxisX) || isNaN(normalizedRightAxisY)) {
+      return;
+    }
+
+    const transformX = 21.3 * normalizedRightAxisX;
+    const transformY = 21.3 * normalizedRightAxisY;
     const rightAnalogTransformString = `translate(${transformX},${transformY})`;
     setRightTransform(rightAnalogTransformString);
   }, [rightAxisX, rightAxisY]);
@@ -61,7 +79,7 @@ const PS4Icon: React.FC<Props> = ({
 		c2.4,7.4,17.2,54,37.8,94.1c20.6,40.1,44.9,47.6,68.4,47.6c23.5,0,55.6-14.7,64.3-64.7C692.6,329.6,680.3,264.4,676.3,243.5z"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{
             fill: `${
               pressedButtons.some((button) => /(LB|LT)/.test(button))
@@ -72,7 +90,7 @@ const PS4Icon: React.FC<Props> = ({
           d="M183.9,35.7V27c0,0-13.6-8.4-39.4-8.4c-25.8,0-44.3,12.7-44.3,12.7s0,3,0,5.9C114.8,34,148,29.9,183.9,35.7z"
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M240.3,176.8c-13.7,0-26.4,4.5-36.5,12.2c-4.4,6.5-9.6,12.4-15.7,17.4c-5.5,9.1-8.7,19.8-8.7,31.3
 		c0,33.6,27.2,60.8,60.8,60.8s60.8-27.2,60.8-60.8S273.9,176.8,240.3,176.8z"
         />
@@ -84,7 +102,7 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("L3") ? "red" : ""}` }}
         />
         <circle
-          className="st1"
+          fill="#5A6CF3"
           cx="240.3"
           cy="237.7"
           r="39.4"
@@ -92,7 +110,7 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("L3") ? "red" : ""}` }}
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M203.7,189c8.5-12.8,13.5-28.1,13.5-44.6c0-44.5-36-80.5-80.5-80.5c-44.5,0-80.5,36-80.5,80.5
 		c0,44.5,36,80.5,80.5,80.5c19.5,0,37.4-6.9,51.3-18.5C194.1,201.4,199.4,195.5,203.7,189z"
         />
@@ -103,7 +121,7 @@ const PS4Icon: React.FC<Props> = ({
 		c0.1-1.8,0.8-12.3,0.8-14.9S159.4,95.2,156,91.1z"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{
             fill: `${pressedButtons.includes("D-Pad Up") ? "red" : ""}`,
           }}
@@ -119,7 +137,7 @@ const PS4Icon: React.FC<Props> = ({
 		c1.8,0.1,12.3,0.8,14.9,0.8C182.4,165.8,186.8,166.9,190.9,163.5z"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{
             fill: `${pressedButtons.includes("D-Pad Right") ? "red" : ""}`,
           }}
@@ -135,7 +153,7 @@ const PS4Icon: React.FC<Props> = ({
 		c-1.8-0.1-12.3-0.8-14.9-0.8S88.2,123.1,84.1,126.5z"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{
             fill: `${pressedButtons.includes("D-Pad Left") ? "red" : ""}`,
           }}
@@ -151,7 +169,7 @@ const PS4Icon: React.FC<Props> = ({
 		c-0.1,1.8-0.8,12.3-0.8,14.9C116.5,190,115.5,194.4,118.9,198.4z"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{
             fill: `${pressedButtons.includes("D-Pad Down") ? "red" : ""}`,
           }}
@@ -160,31 +178,28 @@ const PS4Icon: React.FC<Props> = ({
 		l0,0c0,0-0.1,0-0.1,0c0,0-0.1,0-0.1,0l0,0c-1.8,0.1-4.2,2.2-4.9,2.7c-0.7,0.5-9.9,9.6-11.7,11.7c-1.8,2-1.8,3.6-1.9,5.2
 		c-0.1,1.6-0.7,11.3-0.7,13.8C118.1,189.7,117.2,193.8,120.3,197.6z"
         />
-        <polygon className="st1" points="137.3,70.7 127.6,80.8 147,80.8 	" />
-        <polygon className="st1" points="137.3,218.2 147,208 127.6,208 	" />
-        <polygon className="st1" points="63.6,144.4 73.7,154.1 73.7,134.7 	" />
-        <polygon
-          className="st1"
-          points="211.1,144.4 200.9,134.7 200.9,154.1 	"
-        />
+        <polygon fill="#5A6CF3" points="137.3,70.7 127.6,80.8 147,80.8 	" />
+        <polygon fill="#5A6CF3" points="137.3,218.2 147,208 127.6,208 	" />
+        <polygon fill="#5A6CF3" points="63.6,144.4 73.7,154.1 73.7,134.7 	" />
+        <polygon fill="#5A6CF3" points="211.1,144.4 200.9,134.7 200.9,154.1 	" />
         <path
-          className="st1"
+          fill="#5A6CF3"
           d="M442.5,167.9c10.7,0,19.3-8.6,19.3-19.3V45.3c-1-3-3.8-5.6-6.9-5.6c-3,0-105.6-0.1-105.6-0.1
 		s-102.6,0.1-105.6,0.1c-3,0-5.9,2.6-6.9,5.6v103.3c0,10.7,8.6,19.3,19.3,19.3H442.5z"
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M216.9,97.7h-13.2c-2.9,0-5.3-2.4-5.3-5.3V61.9c0-2.9,2.4-5.3,5.3-5.3h13.2c2.9,0,5.3,2.4,5.3,5.3v30.5
 		C222.2,95.4,219.8,97.7,216.9,97.7z"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{ fill: `${pressedButtons.includes("Share") ? "red" : ""}` }}
           d="M216.4,57.9h-11.9c-2.6,0-4.8,2.1-4.8,4.8v29.1c0,2.6,2.1,4.8,4.8,4.8h11.9c2.6,0,4.8-2.1,4.8-4.8V62.7
 		C221.2,60.1,219.1,57.9,216.4,57.9z"
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M458.3,176.8c13.7,0,26.4,4.5,36.5,12.2c4.4,6.5,9.6,12.4,15.7,17.4c5.5,9.1,8.7,19.8,8.7,31.3
 		c0,33.6-27.2,60.8-60.8,60.8s-60.8-27.2-60.8-60.8S424.7,176.8,458.3,176.8z"
         />
@@ -196,7 +211,7 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("R3") ? "red" : ""}` }}
         />
         <circle
-          className="st1"
+          fill="#5A6CF3"
           cx="458.3"
           cy="237.7"
           r="39.4"
@@ -204,23 +219,23 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("R3") ? "red" : ""}` }}
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M494.9,189c-8.5-12.8-13.5-28.1-13.5-44.6c0-44.5,36-80.5,80.5-80.5c44.5,0,80.5,36,80.5,80.5
 		c0,44.5-36,80.5-80.5,80.5c-19.5,0-37.4-6.9-51.3-18.5C504.5,201.4,499.2,195.5,494.9,189z"
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M481.7,97.7h13.2c2.9,0,5.3-2.4,5.3-5.3V61.9c0-2.9-2.4-5.3-5.3-5.3h-13.2c-2.9,0-5.3,2.4-5.3,5.3v30.5
 		C476.4,95.4,478.8,97.7,481.7,97.7z"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{ fill: `${pressedButtons.includes("Options") ? "red" : ""}` }}
           d="M482.2,57.9h11.9c2.6,0,4.8,2.1,4.8,4.8v29.1c0,2.6-2.1,4.8-4.8,4.8h-11.9c-2.6,0-4.8-2.1-4.8-4.8V62.7
 		C477.4,60.1,479.5,57.9,482.2,57.9z"
         />
         <circle
-          className="st1"
+          fill="#5A6CF3"
           cx="349.7"
           cy="241.6"
           r="19.2"
@@ -236,18 +251,18 @@ const PS4Icon: React.FC<Props> = ({
             fill: `${pressedButtons.includes("PS Button") ? "red" : ""}`,
           }}
         />
-        <circle className="st0" cx="325.1" cy="185.9" r="3.4" />
-        <circle className="st0" cx="337.3" cy="185.9" r="3.4" />
-        <circle className="st0" cx="349.5" cy="185.9" r="3.4" />
-        <circle className="st0" cx="361.7" cy="185.9" r="3.4" />
-        <circle className="st0" cx="374" cy="185.9" r="3.4" />
-        <circle className="st0" cx="331.3" cy="194.6" r="3.4" />
-        <circle className="st0" cx="343.6" cy="194.6" r="3.4" />
-        <circle className="st0" cx="355.8" cy="194.6" r="3.4" />
-        <circle className="st0" cx="368" cy="194.6" r="3.4" />
-        <circle className="st0" cx="337.3" cy="203.3" r="3.4" />
-        <circle className="st0" cx="349.5" cy="203.3" r="3.4" />
-        <circle className="st0" cx="361.7" cy="203.3" r="3.4" />
+        <circle fill="#12C7FA" cx="325.1" cy="185.9" r="3.4" />
+        <circle fill="#12C7FA" cx="337.3" cy="185.9" r="3.4" />
+        <circle fill="#12C7FA" cx="349.5" cy="185.9" r="3.4" />
+        <circle fill="#12C7FA" cx="361.7" cy="185.9" r="3.4" />
+        <circle fill="#12C7FA" cx="374" cy="185.9" r="3.4" />
+        <circle fill="#12C7FA" cx="331.3" cy="194.6" r="3.4" />
+        <circle fill="#12C7FA" cx="343.6" cy="194.6" r="3.4" />
+        <circle fill="#12C7FA" cx="355.8" cy="194.6" r="3.4" />
+        <circle fill="#12C7FA" cx="368" cy="194.6" r="3.4" />
+        <circle fill="#12C7FA" cx="337.3" cy="203.3" r="3.4" />
+        <circle fill="#12C7FA" cx="349.5" cy="203.3" r="3.4" />
+        <circle fill="#12C7FA" cx="361.7" cy="203.3" r="3.4" />
         <circle
           cx="512.2"
           cy="144"
@@ -255,7 +270,7 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("X") ? "red" : ""}` }}
         />
         <circle
-          className="st1"
+          fill="#5A6CF3"
           cx="512.2"
           cy="144"
           r="22.4"
@@ -268,7 +283,7 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("B") ? "red" : ""}` }}
         />
         <circle
-          className="st1"
+          fill="#5A6CF3"
           cx="612.4"
           cy="144"
           r="22.4"
@@ -281,7 +296,7 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("Y") ? "red" : ""}` }}
         />
         <circle
-          className="st1"
+          fill="#5A6CF3"
           cx="562.2"
           cy="94.1"
           r="22.4"
@@ -294,33 +309,33 @@ const PS4Icon: React.FC<Props> = ({
           style={{ fill: `${pressedButtons.includes("A") ? "red" : ""}` }}
         />
         <circle
-          className="st1"
+          fill="#5A6CF3"
           cx="562.2"
           cy="194.7"
           r="22.4"
           style={{ fill: `${pressedButtons.includes("A") ? "red" : ""}` }}
         />
         <path
-          className="st8"
+          fill="#E6CAF9"
           d="M522.5,132.8V154h-21.2v-21.2H522.5 M525.1,130.2h-26.5v26.5h26.5V130.2L525.1,130.2z"
         />
         <path
-          className="st9"
+          fill="#A0E8F9"
           d="M562.4,82.1l10.8,18.3h-21.6L562.4,82.1 M562.4,76.2l-16,27.2h32L562.4,76.2L562.4,76.2z"
         />
         <path
-          className="st10"
+          fill="#F9B9B9"
           d="M612.8,130.6c7.2,0,13.1,5.9,13.1,13.1s-5.9,13.1-13.1,13.1c-7.2,0-13.1-5.9-13.1-13.1
 		S605.5,130.6,612.8,130.6 M612.8,127.6c-8.9,0-16.2,7.2-16.2,16.2c0,8.9,7.2,16.2,16.2,16.2c8.9,0,16.2-7.2,16.2-16.2
 		C628.9,134.8,621.7,127.6,612.8,127.6L612.8,127.6z"
         />
         <polygon
-          className="st11"
+          fill="#A0C4F9"
           points="575.5,204.4 564.4,193.5 575.3,182.4 573.2,180.2 562.2,191.3 551.1,180.4 548.9,182.6 560.1,193.5 
 		549.1,204.7 551.3,206.8 562.2,195.7 573.4,206.6 	"
         />
         <path
-          className="st1"
+          fill="#5A6CF3"
           style={{
             fill: `${
               pressedButtons.some((button) => /(RB|RT)/.test(button))
@@ -339,13 +354,13 @@ const PS4Icon: React.FC<Props> = ({
 		c0,10.4,8.4,18.8,18.8,18.8h182.2C450.8,165.6,459.3,157.2,459.3,146.8z"
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M459.3,205.6c-17.4,0-31.5,14.1-31.5,31.5c0,17.4,14.1,31.5,31.5,31.5c17.4,0,31.5-14.1,31.5-31.5
 		C490.7,219.7,476.6,205.6,459.3,205.6z M459.3,265c-15.4,0-28-12.5-28-28c0-15.4,12.5-28,28-28c15.4,0,28,12.5,28,28
 		C487.2,252.5,474.7,265,459.3,265z"
         />
         <path
-          className="st0"
+          fill="#12C7FA"
           d="M239.4,205.6c-17.4,0-31.5,14.1-31.5,31.5c0,17.4,14.1,31.5,31.5,31.5c17.4,0,31.5-14.1,31.5-31.5
 		C270.8,219.7,256.8,205.6,239.4,205.6z M239.4,265c-15.4,0-28-12.5-28-28c0-15.4,12.5-28,28-28s28,12.5,28,28
 		C267.3,252.5,254.8,265,239.4,265z"
