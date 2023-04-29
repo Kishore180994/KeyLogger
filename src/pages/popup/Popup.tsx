@@ -1,6 +1,7 @@
+import "@pages/popup/Popup.css";
+
 import React from "react";
 import logo from "@assets/img/logo.svg";
-import "@pages/popup/Popup.css";
 
 const Popup = () => {
   return (
@@ -8,7 +9,7 @@ const Popup = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/pages/popup/Popup.tsx</code> and save to reload.
+          KeyLogger
         </p>
         <a
           className="App-link"
