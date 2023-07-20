@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 export const useControllerInfo = (controllerType: string) => {
+  console.log({ controllerType });
   const info = useMemo(() => {
     const controllerInfo = {
       name: "",
@@ -49,7 +50,10 @@ export const useControllerInfo = (controllerType: string) => {
         14: "R3",
         15: "",
       };
-    } else if (controllerType.includes("DUALSHOCK")) {
+    } else if (
+      controllerType.includes("DUALSHOCK") ||
+      controllerType.includes("Wireless Controller")
+    ) {
       controllerInfo.name = "Play station 4";
       controllerInfo.buttonMapping = {
         0: "A",

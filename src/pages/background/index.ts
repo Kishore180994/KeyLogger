@@ -8,4 +8,44 @@ reloadOnUpdate("pages/background");
  */
 reloadOnUpdate("pages/content/style.scss");
 
-console.log("background loaded");
+// chrome.action.onClicked.addListener((tab) => {
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     files: ["src/pages/content/index.js"],
+//   });
+// });
+
+const tabStates = {};
+
+chrome.action.onClicked.addListener((tab) => {
+  const tabId = tab.id;
+
+  if (!tabStates[tabId]) {
+    chrome.scripting.executeScript(
+      {
+        target: { tabId: tab.id },
+        files: ["src/pages/content/index.js"],
+      },
+      () => {
+        tabStates[tabId] = { scriptInserted: true, visible: true };
+        // Set badge text to "On"
+        chrome.action.setBadgeText({ text: "On", tabId: tabId });
+      }
+    );
+  } else {
+    chrome.tabs.sendMessage(tabId, { action: "toggleContentScript" });
+    // Toggle badge text between "On" and "Off"
+    tabStates[tabId].visible = !tabStates[tabId].visible;
+    chrome.action.setBadgeText({
+      text: tabStates[tabId].visible ? "On" : "Off",
+      tabId: tabId,
+    });
+  }
+});
+
+// Set the initial badge text to "Off"
+chrome.tabs.query({}, (tabs) => {
+  tabs.forEach((tab) => {
+    chrome.action.setBadgeText({ text: "Off", tabId: tab.id });
+  });
+});

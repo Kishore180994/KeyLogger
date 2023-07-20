@@ -21,11 +21,12 @@ export default function makeManifest(
 
     // Naming change for cache invalidation
     if (config.contentScriptCssKey) {
-      manifest.content_scripts.forEach((script) => {
-        script.css = script.css.map((css) =>
-          css.replace("<KEY>", config.contentScriptCssKey)
-        );
-      });
+      manifest.content_scripts &&
+        manifest.content_scripts.forEach((script) => {
+          script.css = script.css.map((css) =>
+            css.replace("<KEY>", config.contentScriptCssKey)
+          );
+        });
     }
 
     fs.writeFileSync(
